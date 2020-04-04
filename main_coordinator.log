@@ -1,0 +1,18 @@
+2020-04-04 11:29:53,542 - main-coordinator - INFO - Attempting to connect to fail_safe_server.
+2020-04-04 11:29:53,545 - main-coordinator - INFO - Connected to host: 127.0.0.1 at port: 40762
+2020-04-04 11:29:53,546 - main-coordinator - INFO - Connected to host: 127.0.0.1 at port: 40770
+2020-04-04 11:29:53,546 - main-coordinator - INFO - Connected to Fail Safe Coordinator.
+2020-04-04 11:29:53,546 - main-coordinator - INFO - Awaiting connection from participants.
+2020-04-04 11:29:56,549 - main-coordinator - INFO - Sent PREPARE to host: 127.0.0.1 at port: 40770
+2020-04-04 11:29:57,550 - main-coordinator - INFO - Sent PREPARE to host: 127.0.0.1 at port: 40762
+2020-04-04 11:29:59,552 - main-coordinator - INFO - Sent INSERT INTO transaction_table(name, salary)VALUES(taha, 8900) to host: 127.0.0.1 at port: 40770
+2020-04-04 11:30:00,552 - main-coordinator - INFO - Sent INSERT INTO transaction_table(name, salary)VALUES(taha, 8900) to host: 127.0.0.1 at port: 40762
+2020-04-04 11:30:02,555 - main-coordinator - INFO - Received VOTE_COMMIT from host: 127.0.0.1 at port: 40770
+2020-04-04 11:30:03,555 - main-coordinator - INFO - Received VOTE_COMMIT from host: 127.0.0.1 at port: 40762
+2020-04-04 11:30:07,558 - main-coordinator - INFO - Sent DECIDED_TO_COMMIT to host: 127.0.0.1 at port: 8006
+2020-04-04 11:30:07,559 - main-coordinator - INFO - Received RECORDED_COMMIT from host: 127.0.0.1 at port: 40770
+2020-04-04 11:30:07,559 - main-coordinator - INFO - Sent GLOBAL_COMMIT to all connected participants
+2020-04-04 11:30:07,560 - main-coordinator - INFO - Sent GLOBAL_COMMIT to all connected participants
+2020-04-04 11:30:07,718 - main-coordinator - INFO - Received SUCCESSFUL_COMMIT from host: 127.0.0.1 at port: 40770
+2020-04-04 11:30:08,557 - main-coordinator - INFO - Received SUCCESSFUL_COMMIT from host: 127.0.0.1 at port: 40762
+2020-04-04 11:30:11,267 - main-coordinator - ERROR - Main Coordinator Stopped.
