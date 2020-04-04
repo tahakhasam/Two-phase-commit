@@ -108,6 +108,8 @@ class Participant:
 			self.logger.info('Attempting to connect to Fail Safe Coordinator at host: {} at port: {}'.format(*self.FAIL_SAFE_ADDRESS))
 			reader, writer = await asyncio.open_connection(*self.FAIL_SAFE_ADDRESS)
 			self.logger.info('Connected to host: {} at port: {}'.format(*self.FAIL_SAFE_ADDRESS))
+			writer.write(b'Participant acknowledgement.')
+			await writer.drain()
 			data = await asyncio.wait_for(reader.read(1024), timeout=self.timeout)
 			await self.commit_or_rollback(reader, writer, data, self.FAIL_SAFE_ADDRESS)
 

@@ -1,0 +1,6 @@
+2020-04-04 18:04:10,389 - participant - INFO - Attempting to connect Main Coordinator at host: 127.0.0.1 at port: 8005
+2020-04-04 18:04:10,390 - participant - INFO - Connected to host: 127.0.0.1 at port: 8005
+2020-04-04 18:04:13,685 - participant - INFO - Received PREPARE from host: 127.0.0.1 at port: 8005
+2020-04-04 18:04:16,688 - participant - WARNING - Sending VOTE_COMMIT to host: 127.0.0.1 at port: 8005
+2020-04-04 18:04:24,407 - participant - WARNING - Received GLOBAL_COMMIT from host: 127.0.0.1 at port: 8005
+2020-04-04 18:04:24,591 - participant - INFO - commit complete.

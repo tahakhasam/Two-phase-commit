@@ -12,7 +12,6 @@ class Coordinator:
 		This constructor sets up all the required address 
 		and preliminary configurations.
 		"""
-		self.SECONDARY_SERVER_ADDRESS = ('127.0.0.1', 9000)
 		self.SERVER_ADDRESS = ('', 8005)
 		self.FAIL_SAFE_ADDRESS = (fail_safe_address, 8006)
 		self.max_connections = max_connections
@@ -126,11 +125,12 @@ class Coordinator:
 		""" This coroutine is used to connect to all fail safe coordinator. """
 		try:
 			self.logger.info('Attempting to connect to fail_safe_server.')
-			reader, writer = await asyncio.open_connection(*self.FAIL_SAFE_ADDRESS, 
-				local_addr=self.SECONDARY_SERVER_ADDRESS)
+			reader, writer = await asyncio.open_connection(*self.FAIL_SAFE_ADDRESS)
 			self.logger.info('Connected to Fail Safe Coordinator.')
 			self.fail_safe_stream = (reader, writer)
-		except OSError:
+			writer.write(b'Main Coordinator acknowledgment.')
+			await writer.drain()
+		except OSError as e:
 			self.logger.error('Unable to connect to Fail Safe Coordinator.')
 			sys.exit(0)
 

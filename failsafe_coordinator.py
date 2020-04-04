@@ -4,12 +4,11 @@ from constants import Constants
 
 class FailSafeCoordinator:
 
-	def __init__(self: object, address: str, max_conn: int) -> object:
+	def __init__(self: object, max_conn: int) -> object:
 		"""
 		This constructor sets up all required address and
 		preliminary configurations.
 		"""
-		self.SERVER_ADDRESS = (address, 9000)
 		self.FAIL_SAFE_ADDRESS = ('', 8006)
 		self.protocols = Constants()
 		self.set_up_logger()
@@ -41,11 +40,12 @@ class FailSafeCoordinator:
 		"""
 		try:
 			address = writer.get_extra_info('peername')
-			if address == self.SERVER_ADDRESS:
+			data = await reader.read(1024)
+			if 'Main Coordinator' in data.decode():
 				self.logger.info('Connected to Main Coordinator.')
 				await self.communicating_with_server(reader, writer)
 
-			if address != self.SERVER_ADDRESS:
+			if 'Participant' in data.decode():
 				self.connected_clients += 1
 				self.clients[address] = (reader, writer)
 				await self.communicating_with_participants(reader, writer, address)
@@ -124,10 +124,3 @@ if __name__ == '__main__':
 		asyncio.run(ob.start_connections())
 	except KeyboardInterrupt:
 		ob.logger.error('Fail safe stopped')
-
-
-
-
-
-
-

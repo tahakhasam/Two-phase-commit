@@ -17,9 +17,8 @@ try:
 		asyncio.run(main_coordinator.start_connections())
 
 	if choice == 2:
-		main_address_host = input('Enter server ip address :  ')
 		num_of_participants = int(input('Enter number of participants : '))
-		failsafe_coordinator = FailSafeCoordinator(main_address_host, num_of_participants)
+		failsafe_coordinator = FailSafeCoordinator(num_of_participants)
 		asyncio.run(failsafe_coordinator.start_connections())
 
 	if choice == 3:
