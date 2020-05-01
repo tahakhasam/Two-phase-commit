@@ -1,6 +1,4 @@
-2020-04-04 18:03:29,028 - failsafe-coordinator - INFO - Awaiting connection
-2020-04-04 18:03:41,066 - failsafe-coordinator - INFO - Connected to Main Coordinator.
-2020-04-04 18:03:41,066 - failsafe-coordinator - INFO - Awaiting communication from Main Coordinator.
-2020-04-04 18:04:24,405 - failsafe-coordinator - INFO - Received DECIDED_TO_COMMIT from Main Coordinator.
-2020-04-04 18:04:24,406 - failsafe-coordinator - INFO - Sent RECORDED_COMMIT to Main Coordinator.
-2020-04-04 18:04:28,930 - failsafe-coordinator - ERROR - Fail Safe Coordinator Stopped
+2020-05-01 17:13:33,819 - failsafe-coordinator - INFO - Awaiting connection
+2020-05-01 17:13:46,490 - failsafe-coordinator - INFO - Connected to Main Coordinator.
+2020-05-01 17:13:46,491 - failsafe-coordinator - INFO - Awaiting communication from Main Coordinator.
+2020-05-01 17:15:39,521 - failsafe-coordinator - ERROR - Fail Safe Coordinator Stopped

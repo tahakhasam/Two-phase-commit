@@ -1,11 +1,12 @@
 import asyncio
 import logging
 import sys
+from base import CommonBaseClass
 from database_connectivity import DatabaseConnection
 from constants import Constants
 
 
-class Coordinator:
+class Coordinator(CommonBaseClass):
 
 	def __init__(self: object, max_connections: int, fail_safe_address: str) -> object:
 		""" 
@@ -19,23 +20,8 @@ class Coordinator:
 		self.connected_clients = 0
 		self.commit = 0
 		self.protocols = Constants()
-		self.set_up_logger()
+		self.set_up_logger('main-coordinator')
 	
-	def set_up_logger(self: object) -> None:
-		""" Sets up to loggers One for Console, One for File. """
-		self.logger = logging.getLogger('main-coordinator')
-		self.logger.setLevel(logging.INFO)
-		console_handler = logging.StreamHandler()
-		file_handler = logging.FileHandler('main_coordinator.log', 'w+')
-		console_handler.setLevel(logging.INFO)
-		file_handler.setLevel(logging.INFO)
-		console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-		file_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-		console_handler.setFormatter(console_format)
-		file_handler.setFormatter(file_format)
-		self.logger.addHandler(console_handler)
-		self.logger.addHandler(file_handler)
-
 	async def perform_actions(self: object, reader: asyncio.StreamReader,
 		writer: asyncio.StreamWriter) -> None:
 		"""

@@ -1,11 +1,11 @@
 import os
 import asyncio
-import logging
+from base import CommonBaseClass
 from constants import Constants
 from database_connectivity import DatabaseConnection
 
 
-class Participant:
+class Participant(CommonBaseClass):
 
 	def __init__(self: object, address: str, 
 		fail_safe_addr: str = None, timeout: int=30) -> object:
@@ -18,22 +18,7 @@ class Participant:
 		self.protocols = Constants()
 		self.timeout = timeout
 		self.database_connector = DatabaseConnection()
-		self.set_up_logger()
-
-	def set_up_logger(self: object) -> None:
-		""" Sets up loggers both for Console as well as File. """
-		self.logger = logging.getLogger(f'participant')
-		self.logger.setLevel(logging.INFO)
-		console_handler = logging.StreamHandler()
-		file_handler = logging.FileHandler('participant.log', 'w+')
-		console_handler.setLevel(logging.INFO)
-		file_handler.setLevel(logging.INFO)
-		console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-		file_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-		console_handler.setFormatter(console_format)
-		file_handler.setFormatter(file_format)
-		self.logger.addHandler(console_handler)
-		self.logger.addHandler(file_handler)
+		self.set_up_logger('participant')
 
 	async def perform_actions(self: object):
 		"""

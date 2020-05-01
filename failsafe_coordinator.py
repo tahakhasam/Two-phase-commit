@@ -1,8 +1,8 @@
 import asyncio
-import logging
+from base import CommonBaseClass
 from constants import Constants
 
-class FailSafeCoordinator:
+class FailSafeCoordinator(CommonBaseClass):
 
 	def __init__(self: object, max_conn: int) -> object:
 		"""
@@ -11,26 +11,11 @@ class FailSafeCoordinator:
 		"""
 		self.FAIL_SAFE_ADDRESS = ('', 8006)
 		self.protocols = Constants()
-		self.set_up_logger()
+		self.set_up_logger('failsafe-coordinator')
 		self.max_conn = max_conn
 		self.connected_clients = 0
 		self.commit = False
 		self.clients = {}
-
-	def set_up_logger(self: object) -> None:
-		""" Sets up loggers both for Console as well as File. """
-		self.logger = logging.getLogger('failsafe-coordinator')
-		self.logger.setLevel(logging.INFO)
-		console_handler = logging.StreamHandler()
-		file_handler = logging.FileHandler('failsafe_coordinator.log', 'w+')
-		console_handler.setLevel(logging.INFO)
-		file_handler.setLevel(logging.INFO)
-		console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-		file_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-		console_handler.setFormatter(console_format)
-		file_handler.setFormatter(file_format)
-		self.logger.addHandler(console_handler)
-		self.logger.addHandler(file_handler)
 
 	async def perform_actions(self: object, reader: asyncio.StreamReader,
 		writer: asyncio.StreamWriter) -> None:
