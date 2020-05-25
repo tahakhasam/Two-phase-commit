@@ -107,6 +107,7 @@ class Coordinator(CommonBaseClass):
 
 			await asyncio.sleep(1)
 
+
 	async def connect_to_failsafe(self:object) -> None:
 		""" This coroutine is used to connect to all fail safe coordinator. """
 		try:
@@ -133,9 +134,7 @@ class Coordinator(CommonBaseClass):
 		Fail Safe Coordinator. 
 		"""
 		self.server = await asyncio.start_server(self.perform_actions,*self.SERVER_ADDRESS)
-		self.employee_name = input('Enter employee_name : ')
-		self.salary = input(f'Enter salary of {self.employee_name} : ')
-		self.transaction = DatabaseConnection.add_transaction %(self.employee_name, self.salary)
+		self.transaction = input("Enter query : ")
 		async with self.server:
 			await self.connect_to_failsafe()
 			self.logger.info('Awaiting connection from participants.')

@@ -13,10 +13,6 @@ class DatabaseConnection:
 		'database': database,
 		'raise_on_warnings': True 
 	}
-	
-	add_transaction = ("INSERT INTO transaction_table"
-					   "(name, salary)"
-					   "VALUES(%s, %s)")
 
 	table = (
 		"CREATE TABLE transaction_table ("
@@ -71,15 +67,6 @@ class DatabaseConnection:
 		except mysql.connector.Error as err:
 			print(err.msg)
 
-	def parse_query(self, query: str) -> tuple:
-		""" Used for parsing query to obtain required feilds. """
-		values = query.split('VALUES')[1]
-		values = values.replace('(', '')
-		values = values.replace(')', '')
-		values = values.split(',')
-		return values[0].strip(), values[1].strip()
-
-
 	def create_table(self):
 		""" Creates table. """
 		try:
@@ -96,9 +83,8 @@ class DatabaseConnection:
 
 	def insert_values(self: object, query:str) -> None:
 		""" Inserts Value to the table. """
-		values = self.parse_query(query)
 		try:
-			self.cursor.execute(type(self).add_transaction, values)
+			self.cursor.execute(query)
 			return Constants().VOTE_COMMIT
 		except mysql.connector.Error as err:
 			print(err.msg)
@@ -126,3 +112,5 @@ class DatabaseConnection:
 			print(err.msg)
 		finally:
 			self.conn.close()
+
+

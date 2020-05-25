@@ -8,7 +8,7 @@ from database_connectivity import DatabaseConnection
 class Participant(CommonBaseClass):
 
 	def __init__(self: object, address: str, 
-		fail_safe_addr: str = None, timeout: int=30) -> object:
+		fail_safe_addr: str = None, timeout: int=45) -> object:
 		"""
 		This constructor sets up all required address and
 		preliminary configurations.
@@ -36,6 +36,7 @@ class Participant(CommonBaseClass):
 			self.logger.info('Received {} from host: {} at port: {}'.format(data.decode(), *self.SERVER_ADDRESS))
 			if data == self.protocols.PREPARE:
 				self.database_connector.prepare()
+				self.logger.info('Prepared for further process.')
 
 			# RECEIVING transaction query
 			data = await asyncio.wait_for(reader.read(2048), timeout=self.timeout)
@@ -56,8 +57,9 @@ class Participant(CommonBaseClass):
 		except ConnectionRefusedError:
 			self.logger.error('Unable to connect to intended server.')
 			await self.perform_actions_failsafe()
-		except:
-			self.logger.error('Unknown error occured.')
+		except Exception as e:
+			#self.logger.error('Unknown error occured.')
+			self.logger.error(e)
 			self.logger.warning('Shutting down participant.')
 
 
@@ -76,7 +78,6 @@ class Participant(CommonBaseClass):
 		elif data == self.protocols.GLOBAL_ABORT:
 			self.database_connector.rollback()
 			self.logger.warning(f'rollback complete.')
-			self.logger.info('')
 			writer.write(self.protocols.SUCCESSFUL_ABORT)
 			await writer.drain()
 		
